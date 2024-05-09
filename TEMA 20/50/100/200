@@ -1,0 +1,63 @@
+//@version=5
+indicator("TEMA 20/50/100/200 Labels", overlay=true)
+import TradingView/ta/7
+
+short = ta.tema(close, 20)
+medium = ta.tema(close, 50)
+long = ta.tema(close, 100)
+longest = ta.tema(close, 200)
+
+plot(short, color = color.red)
+plot(medium, color = color.orange)
+plot(long, color = color.aqua)
+plot(longest, color = color.blue)
+
+
+// Adding cross-over shapes Bullish - 20 crosses over 50/100/200
+crossShortMedium = ta.crossover(short, medium)
+crossShortLong = ta.crossover(short, long)
+crossShortLongest = ta.crossover(short, longest)
+
+plotshape(crossShortMedium ? short : na, style=shape.labelup, color=crossShortMedium ? color.green : na, location=location.belowbar, size=size.tiny)
+plotshape(crossShortLong ? short : na, style=shape.labelup, color=crossShortLong ? color.green : na, location=location.belowbar, size=size.tiny)
+plotshape(crossShortLongest ? short : na, style=shape.labelup, color=crossShortLongest ? color.green : na, location=location.belowbar, size=size.tiny)
+
+
+// Adding cross-over shapes Bullish - 50 crosses over 100/200
+crossMediumLong = ta.crossover(medium, long)
+crossMediumLongest = ta.crossover(medium, longest)
+
+plotshape(crossMediumLong ? medium : na, style=shape.labelup, color=crossMediumLong ? color.green : na, location=location.belowbar, size=size.tiny)
+plotshape(crossMediumLongest ? medium : na, style=shape.labelup, color=crossShortLongest ? color.green : na, location=location.belowbar, size=size.tiny)
+
+
+// Adding cross-over shapes Bullish - 100 crosses over 200
+crossLongLongest = ta.crossover(medium, long)
+
+plotshape(crossLongLongest ? medium : na, style=shape.labelup, color=crossLongLongest ? color.green : na, location=location.belowbar, size=size.tiny)
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Adding cross-over shapes Bear - 20 crosses under 50/100/200
+crossUnderShortMedium = ta.crossunder(short, medium)
+crossUnderShortLong = ta.crossunder(short, long)
+crossUnderShortLongest = ta.crossunder(short, longest)
+
+plotshape(crossUnderShortMedium ? short : na, style=shape.labeldown, color=crossUnderShortMedium ? color.red : na, location=location.abovebar, size=size.tiny)
+plotshape(crossUnderShortLong ? short : na, style=shape.labeldown, color=crossUnderShortLong ? color.red : na, location=location.abovebar, size=size.tiny)
+plotshape(crossUnderShortLongest ? short : na, style=shape.labeldown, color=crossUnderShortLongest ? color.red : na, location=location.abovebar, size=size.tiny)
+
+
+// Adding cross-over shapes Bear - 50 crosses under 100/200
+crossUnderMediumnLong = ta.crossunder(medium, long)
+crossUnderMediumLongest = ta.crossunder(medium, longest)
+
+plotshape(crossUnderMediumnLong ? short : na, style=shape.labeldown, color=crossUnderMediumnLong ? color.red : na, location=location.abovebar, size=size.tiny)
+plotshape(crossUnderMediumLongest ? short : na, style=shape.labeldown, color=crossUnderMediumLongest ? color.red : na, location=location.abovebar, size=size.tiny)
+
+
+// Adding cross-over shapes Bear - 100 crosses under 200
+crossUnderLongLongest = ta.crossunder(long, longest)
+
+plotshape(crossUnderLongLongest ? short : na, style=shape.labeldown, color=crossUnderLongLongest ? color.red : na, location=location.abovebar, size=size.tiny)
